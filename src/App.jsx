@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
+import { StoreContext } from 'storeon/react'
+import store from '@store'
 import './App.css'
 
 import {
@@ -9,9 +9,11 @@ import {
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <StoreContext.Provider value={store}>
+      <div className="App">
+        <Login />
+      </div>
+    </StoreContext.Provider>
   )
 }
 

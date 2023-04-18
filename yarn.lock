@@ -357,6 +357,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@storeon/router@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@storeon/router/-/router-2.0.1.tgz#e4ee63c5bcff122c142b02147bac4f5052c152f3"
+  integrity sha512-iukCYLSXs2+wmIqXHrFM7LPkJBJK2lg67cu4ito62AII1OeQQKb7l2SrVk+zn8Kbaaok5QolZbDm8TFWa9CUVQ==
+
 "@types/prop-types@*":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"

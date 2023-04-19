@@ -1,26 +1,30 @@
 import React, { useEffect } from 'react'
-import { useStoreon } from 'storeon/react'
+// import { useStoreon } from 'storeon/react'
+import { useApi } from '@hooks'
+import Loading from './Loading'
 
 const Login = () => {
-  const { dispatch, user } = useStoreon('user')
+  const { loading, data, handleRequest } = useApi()
+
+  const getHello = () => handleRequest('GET', '/hello')
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch('user/login', { username: 'juanito', token: '123' })
-    }, 5000)
-
-    setTimeout(() => {
-      dispatch('user/logout')
-    }, 10000)
+    getHello()
   }, [])
 
-  return <div>
-    {
-      user.isLoggedIn ?
-        <h1>USER IS LOGGED IN</h1>:
-        <h1>USER IS NOT LOGGED IN</h1>
-    }
-  </div>
+  const world = data?.hello
+
+  return (
+    <div>
+      {
+        loading ?
+          <Loading />:
+          <h1>
+            Response: {world}
+          </h1>
+      }
+    </div>
+  )
 }
 
 export default Login

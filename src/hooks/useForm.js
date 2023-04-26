@@ -7,7 +7,8 @@ const useForm = (schema, initialValues) => {
       ...old,
       [field]: value
     }))
-  
+
+  const onChange = (field) => ({ target: { value }}) => setValue(field, value)
 
   const validate = () => schema.validate(values)
 
@@ -15,6 +16,7 @@ const useForm = (schema, initialValues) => {
     values,
     setValue,
     setValues,
+    onChange,
     validate
   }
 }

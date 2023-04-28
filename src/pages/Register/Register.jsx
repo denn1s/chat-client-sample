@@ -11,6 +11,8 @@ import {
 import {
   Input,
   Eye,
+  Button,
+  Notification,
 } from '@components'
 
 const schema = Joi.object({
@@ -25,10 +27,19 @@ const schema = Joi.object({
   .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 })
 
-const Login = () => {
+const Register = () => {
   const [showPassword, setShowPassword] = useState([false, false])
   const { loading, data, handleRequest } = useApi()
   const form = useForm(schema, { username: '', password: '', password2: ''})
+
+  const handleRegister = () => {
+    console.log('handle register')
+
+    console.log('values', form.values)
+
+  console.log('validate', form.validate())
+
+  }
 
   return (
     <div className={styles.register}>
@@ -38,7 +49,6 @@ const Login = () => {
           value={form.values.username}
           onChange={form.onChange('username')}
           name="username"
-          placeholder="usuario"
           label="Nombre de usuario"
           type="text"
           required
@@ -81,9 +91,32 @@ const Login = () => {
               ])}
           />
         </aside>
+
+        {
+          form.error ? (
+            <Notification type="danger">
+              {form.error}
+            </Notification>
+          ) : null
+        }
+
+        {
+          form.values.password !== form.values.password2 ? (
+            <Notification type="warning" dismissable>
+              Passwords do not match
+            </Notification>
+          ) : null
+        }
+
+        <Button
+          type="primary"
+          onClick={handleRegister}
+        >
+          Registrarme
+        </Button>
       </div>
     </div>
   )
 }
 
-export default Login
+export default Register

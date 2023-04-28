@@ -9,7 +9,10 @@ const useApi = () => {
   const handleRequest = async (method, path, body = {}, headers = {}) => {
     const options = {
       method,
-      headers
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      }
     }
 
     if (method !== 'GET') {
@@ -17,6 +20,9 @@ const useApi = () => {
     }
 
     setLoading(true)
+
+    let response
+
     try {
       console.info('API CALL', method, path)
 
@@ -26,14 +32,17 @@ const useApi = () => {
       console.info('API RESPONSE', jsonResponse)
 
       setData(jsonResponse)
+      response = jsonResponse
     } catch (e) {
       console.error('Error in api call', e)
       setData({
         error: true,
         message: e.message,
       })
+      response = {}
     }
     setLoading(false)
+    return response
   }
  
   return {

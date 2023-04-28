@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Joi from 'joi'
 
+import { navigate } from '@store'
+
 import styles from './Register.module.css'
 
 import {
@@ -29,16 +31,25 @@ const schema = Joi.object({
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState([false, false])
-  const { loading, data, handleRequest } = useApi()
+  const { loading, handleRequest } = useApi()
   const form = useForm(schema, { username: '', password: '', password2: ''})
+
+  const postRegister = async (username, password) => {
+    const response = await handleRequest('POST', '/register', {
+      username,
+      password
+    })
+    console.log('response', response)
+    if (response?.success) {
+      navigate('/login')
+    }
+  }
 
   const handleRegister = () => {
     console.log('handle register')
-
-    console.log('values', form.values)
-
-  console.log('validate', form.validate())
-
+    if (form.validate()) {
+      postRegister(form.values.username, form.values.password)
+    }
   }
 
   return (
@@ -49,7 +60,7 @@ const Register = () => {
           value={form.values.username}
           onChange={form.onChange('username')}
           name="username"
-          label="Nombre de usuario"
+          label="Username"
           type="text"
           required
         />
@@ -59,7 +70,7 @@ const Register = () => {
             onChange={form.onChange('password')}
             name="password"
             placeholder=""
-            label="Contraseña"
+            label="Password"
             type={showPassword[0] ? 'text' : 'password'}
             required
           />
@@ -78,7 +89,7 @@ const Register = () => {
             onChange={form.onChange('password2')}
             name="password2"
             placeholder=""
-            label="Contraseña"
+            label="Password Again"
             type={showPassword[1] ? 'text' : 'password'}
             required
           />
@@ -101,7 +112,8 @@ const Register = () => {
         }
 
         {
-          form.values.password !== form.values.password2 ? (
+          form.values.password !== form.values.password2
+          && form.values.password2 !== '' ? (
             <Notification type="warning" dismissable>
               Passwords do not match
             </Notification>
@@ -111,6 +123,12 @@ const Register = () => {
         <Button
           type="primary"
           onClick={handleRegister}
+          disabled={
+            !form.values.username
+            || !form.values.password
+            || !form.values.password2
+          }
+          loading={loading}
         >
           Registrarme
         </Button>

@@ -1,0 +1,39 @@
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.register > h1 {
+  font-size: 24px;
+  position: relative;
+  top: -100px;
+}
+
+.register > div {
+  position: relative;
+  top: -100px;
+  border-radius: 5px;
+  width: 300px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  background-color: #FFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding: 40px 20px;
+}
+
+.register > div > aside {
+  position: relative;
+}
+
+.register > div > aside > span {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  cursor: pointer;
+}

@@ -12,8 +12,6 @@ import {
   Input,
 } from '@components'
 
-import Loading from './Loading'
-
 const schema = Joi.object({
   username: Joi.string()
       .alphanum()
